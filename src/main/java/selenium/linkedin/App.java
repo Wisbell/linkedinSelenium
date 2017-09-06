@@ -1,5 +1,7 @@
 // Based on official Selenium tutorial
 // Creating a linkedin account using selenium
+// Since linkedin won't let me create an account without verification maybe try twitter
+// twitter is asking for verification too
 
 package selenium.linkedin;
 
@@ -65,7 +67,7 @@ public class App  {
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         
         // open linkedin in a new tab         
-        js.executeScript("window.open('https://linkedin.com/','_blank'); ");
+        js.executeScript("window.open('https://twitter.com/signup','_blank'); ");
         
         // Create an array of the current tabs to switch between them
         ArrayList<String> tabs = new ArrayList<String> (driver.getWindowHandles());
@@ -73,38 +75,21 @@ public class App  {
         // This is a hacky way to set focus on the new tab, otherwise you can't modify the new tab
         driver.switchTo().window(tabs.get(1));
         
-        // Make sure linkedin is loaded
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("reg-firstname")));
-        System.out.println("element located ");
+        // When sign up page is loaded grab form elements
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("full-name")));
         
-        // When loaded grab form elements
-        WebElement firstName = driver.findElement(By.id("reg-firstname"));
-        System.out.println("web element: " + firstName);
-//        WebElement lastName = driver.findElement(By.id("reg-lastname"));
-//        WebElement linkedinEmail = driver.findElement(By.id("reg-email"));
-//        WebElement password = driver.findElement(By.id("reg-password"));
+        WebElement fullName = driver.findElement(By.id("full-name"));
+        WebElement twitterEmail = driver.findElement(By.id("email"));
+        WebElement password = driver.findElement(By.id("password"));
         
         // Fill in form
-        firstName.sendKeys("Bobby");
-//        lastName.sendKeys("Boucher");
-//        linkedinEmail.sendKeys("Testing@what.com"); // Give email from 10 minute mail
-//        password.sendKeys("superSecretTotally01");
+        fullName.sendKeys("Bobby Boucher");
+        twitterEmail.sendKeys("woah@stuff.com"); // Give email from 10 minute mail
+        // setting pass manually as sendKeys isn't working properly
+        js.executeScript("document.getElementById('password').value='superSecret01'");
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+        // Submit form
+        fullName.submit();
         
 //        // Pause program to test switching tabs
 //        try{
