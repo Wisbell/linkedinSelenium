@@ -3,12 +3,18 @@
 
 package selenium.linkedin;
 
+import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class App  {
@@ -27,23 +33,54 @@ public class App  {
         // not the implementation.
         WebDriver driver = new FirefoxDriver();
         
-        // Test to make sure selenium is loaded and works
-
-        // And now use this to visit Google
-        driver.get("http://www.google.com");
+        // Create new wait for pages to load
+        WebDriverWait wait = new WebDriverWait(driver, 1000);
         
-        // End of test
+        // Import custom js functionality
+        JavascriptExecutor js = null;
+        if (driver instanceof JavascriptExecutor) {
+            js = (JavascriptExecutor)driver;
+        }
         
+        // ** Automation starts here ** //
         
-        // *************************  //
-        // Plan flow of program here
-        // *************************  //
+        // ip blocked - will uncomment in an hour
         
-        // create email account to create account with 10 minute mail
+//        // Go to 10minutemail to create disposable email account
+//        driver.get("https://10minutemail.com/");
+//        
+//        // wait for page to load
+//        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("mailAddress")));
+//        
+//        // Store created email account
+//        String email = driver.findElement(By.id("mailAddress")).getAttribute("value"); // m66304@mvrht.net
+//        
+//        // Log email to make sure it exists
+//        System.out.println("Page email is: " + email);
         
-        // upon completion open new tab to linkedin
+        // go to google for testing while ip blocked from 10minutemail // REMOVE LATER
+        driver.get("https://google.com/");                             // REMOVE LATER
         
-        // create linkedin account with email created       
+        // wait 5 seconds for google to load
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        
+        // open linkedin in a new tab         
+        js.executeScript("window.open('https://linkedin.com/','_blank');");
+        
+        // Create an array of the current tabs to switch between them
+        ArrayList<String> tabs = new ArrayList<String> (driver.getWindowHandles());
+        
+        // Pause program to test switching tabs
+        try{
+        	Thread.sleep(5000);
+        	}
+        	catch(InterruptedException ie){
+        	}
+        
+        // test switching tabs
+        driver.switchTo().window(tabs.get(0));
+        
+        // create linkedin account with created email       
         
         
         //Close the browser
