@@ -65,20 +65,56 @@ public class App  {
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         
         // open linkedin in a new tab         
-        js.executeScript("window.open('https://linkedin.com/','_blank');");
+        js.executeScript("window.open('https://linkedin.com/','_blank'); ");
         
         // Create an array of the current tabs to switch between them
         ArrayList<String> tabs = new ArrayList<String> (driver.getWindowHandles());
         
-        // Pause program to test switching tabs
-        try{
-        	Thread.sleep(5000);
-        	}
-        	catch(InterruptedException ie){
-        	}
+        // This is a hacky way to set focus on the new tab, otherwise you can't modify the new tab
+        driver.switchTo().window(tabs.get(1));
         
-        // test switching tabs
-        driver.switchTo().window(tabs.get(0));
+        // Make sure linkedin is loaded
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("reg-firstname")));
+        System.out.println("element located ");
+        
+        // When loaded grab form elements
+        WebElement firstName = driver.findElement(By.id("reg-firstname"));
+        System.out.println("web element: " + firstName);
+//        WebElement lastName = driver.findElement(By.id("reg-lastname"));
+//        WebElement linkedinEmail = driver.findElement(By.id("reg-email"));
+//        WebElement password = driver.findElement(By.id("reg-password"));
+        
+        // Fill in form
+        firstName.sendKeys("Bobby");
+//        lastName.sendKeys("Boucher");
+//        linkedinEmail.sendKeys("Testing@what.com"); // Give email from 10 minute mail
+//        password.sendKeys("superSecretTotally01");
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+//        // Pause program to test switching tabs
+//        try{
+//        	Thread.sleep(5000);
+//        	}
+//        	catch(InterruptedException ie){
+//        	}
+//        
+//        // test switching tabs
+//        driver.switchTo().window(tabs.get(0));
         
         // create linkedin account with created email       
         
