@@ -34,7 +34,9 @@ public class App  {
         
         // End of test
         
+        // *************************  //
         // Plan flow of program here
+        // *************************  //
         
         //Close the browser
 //        driver.quit();
