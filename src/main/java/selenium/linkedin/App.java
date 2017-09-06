@@ -34,9 +34,17 @@ public class App  {
         
         // End of test
         
+        
         // *************************  //
         // Plan flow of program here
         // *************************  //
+        
+        // create email account to create account with 10 minute mail
+        
+        // upon completion open new tab to linkedin
+        
+        // create linkedin account with email created       
+        
         
         //Close the browser
 //        driver.quit();
